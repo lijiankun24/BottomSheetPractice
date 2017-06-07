@@ -26,10 +26,11 @@
         android:layout_marginTop="?attr/actionBarSize"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_bottom_sheet"
-            style="@style/ButtonStyle"
-            android:text="BottomSheet"/>
+        <TextView
+            style="@style/TextViewStyle"
+            android:gravity="start|center_vertical"
+            android:text="EditText"
+            android:textStyle="bold"/>
 
         <View style="@style/LineStyle"/>
 
@@ -46,10 +47,39 @@
             android:text="BottomSheetDialogFragment"/>
 
         <View style="@style/LineStyle"/>
+
+        <Button
+            android:id="@+id/btn_dialog_fragment"
+            style="@style/ButtonStyle"
+            android:text="DialogFragment"/>
+
+        <View style="@style/LineStyle"/>
+
+        <TextView
+            style="@style/TextViewStyle"
+            android:gravity="start|center_vertical"
+            android:text="Share"
+            android:textStyle="bold"/>
+
+        <View style="@style/LineStyle"/>
+
+        <Button
+            android:id="@+id/btn_share_bottom_sheet_dialog_fragment"
+            style="@style/ButtonStyle"
+            android:text="ShareBottomSheetDialogFragment"/>
+
+        <View style="@style/LineStyle"/>
+
+        <Button
+            android:id="@+id/btn_bottom_sheet"
+            style="@style/ButtonStyle"
+            android:text="BottomSheet"/>
+
+        <View style="@style/LineStyle"/>
     </LinearLayout>
 
     <include
-        layout="@layout/view_bottom_sheet"/>
+        layout="@layout/fragment_share"/>
 
 </android.support.design.widget.CoordinatorLayout>
 

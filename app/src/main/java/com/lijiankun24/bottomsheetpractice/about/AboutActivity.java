@@ -15,7 +15,6 @@ import com.lijiankun24.bottomsheetpractice.R;
 
 public class AboutActivity extends AppCompatActivity implements View.OnClickListener {
 
-
     private Author mAuthor = new Author();
 
     @Override
@@ -56,6 +55,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
         }
         return super.onOptionsItemSelected(item);
     }
+
     private void initView() {
         TextView tvGithub = ((TextView) findViewById(R.id.tv_github));
         tvGithub.setText(Html.fromHtml(getString(R.string.about_github, mAuthor.getGithub())));

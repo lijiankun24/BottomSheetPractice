@@ -1,17 +1,15 @@
 package com.lijiankun24.bottomsheetpractice;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -20,16 +18,14 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lijiankun24.bottomsheetpractice.about.AboutActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
-        CustomETBottomSheetDialogFragment.OnSendCommentClickListener, Toolbar.OnMenuItemClickListener {
+        OnSendCommentClickListener, Toolbar.OnMenuItemClickListener {
 
     private static final String TAG_BOTTOM_SHEET_DIALOG_FRAGMENT = "CustomETBottomSheetDialogFragment";
 
@@ -108,6 +104,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         }
+        behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
     }
 
     private void showBottomSheetDialog() {
@@ -216,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_dialog_fragment).setOnClickListener(this);
         findViewById(R.id.btn_share_bottom_sheet_dialog_fragment).setOnClickListener(this);
         initToolbar();
-        initBottomSheet();
+//        initBottomSheet();
     }
 
     private void initToolbar() {
@@ -226,86 +233,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             getSupportActionBar().setTitle(R.string.app_name);
-        }
-    }
-
-    private void initBottomSheet() {
-        int[] mIcons = {R.drawable.ic_share_wechat,
-                R.drawable.ic_share_wechat_timeline,
-                R.drawable.ic_share_sina_weibo,
-                R.drawable.ic_share_tencent_qq,
-                R.drawable.ic_share_twitter,
-                R.drawable.ic_share_pocket,
-                R.drawable.ic_share_evernote,
-                R.drawable.ic_share_instapaper};
-        String[] mTitles = {"微信好友",
-                "朋友圈",
-                "新浪微博",
-                "QQ",
-                "Twitter",
-                "Pocket",
-                "印象笔记",
-                "Instapaper"
-        };
-
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_sheet);
-        CustomSheetAdapter sheetAdapter = new CustomSheetAdapter(mTitles, mIcons, MainActivity.this);
-        recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 3));
-        recyclerView.setAdapter(sheetAdapter);
-    }
-
-    static class CustomSheetAdapter extends RecyclerView.Adapter<CustomSheetAdapter.SheetViewHolder> {
-
-        private String[] mTitles = null;
-
-        private int[] mIcons = null;
-
-        private Context mContext = null;
-
-        private LayoutInflater mInflater = null;
-
-        CustomSheetAdapter(String[] titles, int[] icons, Context context) {
-            mTitles = titles;
-            mIcons = icons;
-            mContext = context;
-            mInflater = LayoutInflater.from(mContext);
-        }
-
-        @Override
-        public SheetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new SheetViewHolder(mInflater.inflate(R.layout.bottom_sheet_item, parent, false));
-        }
-
-        @Override
-        public void onBindViewHolder(SheetViewHolder holder, int position) {
-            holder.getTVTitle().setText(mTitles[position]);
-            holder.getIVIcon().setImageResource(mIcons[position]);
-        }
-
-        @Override
-        public int getItemCount() {
-            return mTitles == null ? 0 : mTitles.length;
-        }
-
-        class SheetViewHolder extends RecyclerView.ViewHolder {
-            private TextView mTVTitle = null;
-
-            private ImageView mIVIcon = null;
-
-
-            SheetViewHolder(View itemView) {
-                super(itemView);
-                mTVTitle = (TextView) itemView.findViewById(R.id.tv_sheet_item);
-                mIVIcon = (ImageView) itemView.findViewById(R.id.iv_sheet_item);
-            }
-
-            TextView getTVTitle() {
-                return mTVTitle;
-            }
-
-            ImageView getIVIcon() {
-                return mIVIcon;
-            }
         }
     }
 }

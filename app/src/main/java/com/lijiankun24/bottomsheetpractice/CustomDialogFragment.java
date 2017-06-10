@@ -26,15 +26,15 @@ import android.widget.TextView;
 
 public class CustomDialogFragment extends DialogFragment implements View.OnClickListener {
 
-    private CustomETBottomSheetDialogFragment.OnSendCommentClickListener mCommentClickListener = null;
+    private OnSendCommentClickListener mCommentClickListener = null;
 
     private EditText mEditText = null;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof CustomETBottomSheetDialogFragment.OnSendCommentClickListener) {
-            mCommentClickListener = (CustomETBottomSheetDialogFragment.OnSendCommentClickListener) context;
+        if (context instanceof OnSendCommentClickListener) {
+            mCommentClickListener = (OnSendCommentClickListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnSendCommentClickListener");

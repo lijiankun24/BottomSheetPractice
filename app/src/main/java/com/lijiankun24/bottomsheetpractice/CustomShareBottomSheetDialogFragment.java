@@ -7,11 +7,12 @@ import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * CustomETBottomSheetDialogFragment.java
@@ -19,54 +20,11 @@ import android.widget.LinearLayout;
  * Created by lijiankun on 17/6/5.
  */
 
-public class CustomShareBottomSheetDialogFragment extends BottomSheetDialogFragment implements View.OnClickListener {
-
-    private CustomETBottomSheetDialogFragment.OnSendCommentClickListener mCommentClickListener = null;
-
-    private EditText mEditText = null;
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof CustomETBottomSheetDialogFragment.OnSendCommentClickListener) {
-            mCommentClickListener = (CustomETBottomSheetDialogFragment.OnSendCommentClickListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnSendCommentClickListener");
-        }
-    }
+public class CustomShareBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
     @Override
     public void setupDialog(Dialog dialog, int style) {
         initView(dialog);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mCommentClickListener = null;
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.view_blank:
-            case R.id.tv_cancel:
-                dismiss();
-                break;
-            case R.id.tv_send:
-                sendComment();
-                break;
-        }
-    }
-
-    public void sendComment() {
-        String comment = mEditText.getText().toString();
-        if (!isAdded() || mCommentClickListener == null || TextUtils.isEmpty(comment)) {
-            return;
-        }
-        mCommentClickListener.onClick(comment);
-        dismiss();
     }
 
     private void initView(Dialog dialog) {
@@ -107,8 +65,64 @@ public class CustomShareBottomSheetDialogFragment extends BottomSheetDialogFragm
         };
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_sheet);
-        MainActivity.CustomSheetAdapter sheetAdapter = new MainActivity.CustomSheetAdapter(mTitles, mIcons, getContext());
+        CustomSheetAdapter sheetAdapter = new CustomSheetAdapter(mTitles, mIcons, getContext());
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.setAdapter(sheetAdapter);
+    }
+
+
+    static class CustomSheetAdapter extends RecyclerView.Adapter<CustomSheetAdapter.SheetViewHolder> {
+
+        private String[] mTitles = null;
+
+        private int[] mIcons = null;
+
+        private Context mContext = null;
+
+        private LayoutInflater mInflater = null;
+
+        CustomSheetAdapter(String[] titles, int[] icons, Context context) {
+            mTitles = titles;
+            mIcons = icons;
+            mContext = context;
+            mInflater = LayoutInflater.from(mContext);
+        }
+
+        @Override
+        public SheetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new SheetViewHolder(mInflater.inflate(R.layout.bottom_sheet_item, parent, false));
+        }
+
+        @Override
+        public void onBindViewHolder(SheetViewHolder holder, int position) {
+            holder.getTVTitle().setText(mTitles[position]);
+            holder.getIVIcon().setImageResource(mIcons[position]);
+        }
+
+        @Override
+        public int getItemCount() {
+            return mTitles == null ? 0 : mTitles.length;
+        }
+
+        class SheetViewHolder extends RecyclerView.ViewHolder {
+            private TextView mTVTitle = null;
+
+            private ImageView mIVIcon = null;
+
+
+            SheetViewHolder(View itemView) {
+                super(itemView);
+                mTVTitle = (TextView) itemView.findViewById(R.id.tv_sheet_item);
+                mIVIcon = (ImageView) itemView.findViewById(R.id.iv_sheet_item);
+            }
+
+            TextView getTVTitle() {
+                return mTVTitle;
+            }
+
+            ImageView getIVIcon() {
+                return mIVIcon;
+            }
+        }
     }
 }

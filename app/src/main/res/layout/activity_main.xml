@@ -79,7 +79,7 @@
     </LinearLayout>
 
     <include
-        layout="@layout/fragment_share"/>
+        layout="@layout/bottom_sheet_behavior"/>
 
 </android.support.design.widget.CoordinatorLayout>
 

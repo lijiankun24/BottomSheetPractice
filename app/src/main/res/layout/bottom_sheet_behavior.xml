@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_sheet_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="48dp"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#C7C7C7"/>
+
+    <TextView
+        style="@style/TextViewStyle"
+        android:gravity="start|center_vertical"
+        android:paddingLeft="25dp"
+        android:paddingStart="25dp"
+        android:text="Introduction"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingEnd="48dp"
+        android:paddingLeft="48dp"
+        android:paddingRight="48dp"
+        android:paddingStart="48dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:text="This is a demo for me to practice Bottom Sheet and I hope this demo could help you,too. ---- lijiankun24"
+        android:textColor="@android:color/black"
+        android:background="@android:color/holo_blue_light"
+        android:textSize="14sp"/>
+</LinearLayout>

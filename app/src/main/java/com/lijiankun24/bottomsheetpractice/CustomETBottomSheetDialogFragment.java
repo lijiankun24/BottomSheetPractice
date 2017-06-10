@@ -119,9 +119,4 @@ public class CustomETBottomSheetDialogFragment extends BottomSheetDialogFragment
         });
         Utils.toggleSoftInput(getContext(), mEditText);
     }
-
-
-    interface OnSendCommentClickListener {
-        void onClick(String comment);
-    }
 }

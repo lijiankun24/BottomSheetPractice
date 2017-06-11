@@ -47,21 +47,29 @@ public class CustomDialogFragment extends DialogFragment implements View.OnClick
 
         // 使用不带Theme的构造器, 获得的dialog边框距离屏幕仍有几毫米的缝隙。
         Dialog mDialog = new Dialog(getContext(), R.style.BottomDialog);
-        mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);              // 在 setContentView 方法前设置
+        // 在 setContentView 方法前设置
+        mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         LayoutInflater mInflater = LayoutInflater.from(getContext());
         View view = mInflater.inflate(R.layout.fragment_dialog_custom, null);
         initView(view);
         mDialog.setContentView(view);
-        mDialog.setCanceledOnTouchOutside(true);                            // 外部点击取消
+        // 外部点击取消
+        mDialog.setCanceledOnTouchOutside(true);
 
-        Window window = mDialog.getWindow();                                // 设置宽度为屏宽, 靠近屏幕底部。
+        // 设置宽度为屏宽, 靠近屏幕底部
+        Window window = mDialog.getWindow();
         if (window != null) {
             WindowManager.LayoutParams lp = window.getAttributes();
-            lp.gravity = Gravity.BOTTOM;                                    // 紧贴底部
-            lp.width = WindowManager.LayoutParams.MATCH_PARENT;             // 宽度持平
+            // 紧贴底部
+            lp.gravity = Gravity.BOTTOM;
+            // 宽度为 MATCH_PARENT
+            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+            // 高度为 WRAP_CONTENT
             lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            // 背景为透明的
             window.setBackgroundDrawableResource(android.R.color.transparent);
             window.setAttributes(lp);
+            // 弹出软键盘
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         }
         return mDialog;
